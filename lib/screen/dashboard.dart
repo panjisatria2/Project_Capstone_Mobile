@@ -1,4 +1,8 @@
+import 'package:anemaware/screen/chatDokter.dart';
 import 'package:flutter/material.dart';
+
+// import 'chatDokter.dart';
+// import 'home_page.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -11,138 +15,177 @@ class Dashboard extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(
+              top: 30, left: 20, right: 20, bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: primary, width: 2),
-                    ),
-                    child: const Icon(Icons.person_outline,
-                        size: 35, color: primary),
-                  ),
-                  const SizedBox(width: 15),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text('Hallo, Welcome',
-                          style: TextStyle(fontSize: 16, color: Colors.black)),
-                      SizedBox(height: 4),
-                      Text('Username',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600)),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: primary, width: 2),
+                        ),
+                        child: const Icon(
+                          Icons.person_outline,
+                          size: 35,
+                          color: primary,
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'hallo,Welcome',
+                            style: TextStyle(
+                                fontSize: 16, color: Colors.black),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Username',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/navigasi/Doorbell.png',
+                        width: 28,
+                        height: 28,
+                      ),
+                      const SizedBox(width: 15),
+
+                      // Chat pakai InkWell
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context) => const Chatdokter(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          'assets/navigasi/Chat Bubble.png',
+                          width: 28,
+                          height: 28,
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
 
-              // Judul "Postingan"
-              Container(
-                padding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                decoration: BoxDecoration(
-                  color: primary.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  'Postingan',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
+              const Text(
+                "Pesan Terakhir",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 20),
 
-              // Postingan Pertama
               Container(
-                margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary, width: 1.5),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 150,
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Dr.",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 8),
+                        Text("Pesan", style: TextStyle(fontSize: 16)),
+                      ],
+                    ),
+
+                    // Tombol Lihat Pesan
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Chatdokter(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Colors.black38,
-                          borderRadius: BorderRadius.circular(10),
+                          color: primary,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Text(
+                          "Lihat Pesan",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text('Judul Postingan 1',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 4),
-                      const Text('Uploader 1',
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.black54)),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
-              // Postingan Kedua
+              const SizedBox(height: 35),
+
+              const Text(
+                "Artikel",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+
+              const SizedBox(height: 20),
+
               Container(
-                margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: primary, width: 1.5),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.black38,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(height: 10),
-                      const Text('Judul Postingan 2',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 4),
-                      const Text('Uploader 2',
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.black54)),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 15),
+                    const Text(
+                      "Judul",
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      "Uploder",
+                      style:
+                      TextStyle(fontSize: 15, color: Colors.black54),
+                    ),
+                  ],
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-
-      // Floating Action Button (Chatbot)
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: primary,
-        elevation: 4,
-        onPressed: () {},
-        child: ClipOval(
-          child: Image.asset(
-            'assets/navigasi/hugeicons_chat-bot.png',
-            fit: BoxFit.cover,
-            width: 50,
-            height: 50,
           ),
         ),
       ),

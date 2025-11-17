@@ -14,7 +14,7 @@ class Chat extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: const Text(
-                'Tanya Dokter Anonim',
+                'CHATBOT',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
