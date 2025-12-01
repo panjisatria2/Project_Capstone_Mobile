@@ -1,5 +1,6 @@
 import 'package:anemaware/screen/about.dart';
 import 'package:anemaware/screen/editProfile.dart';
+import 'package:anemaware/screen/list_dokter.dart';
 import 'package:anemaware/screen/login.dart';
 import 'package:anemaware/screen/riwayat.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,51 @@ class Profile extends StatelessWidget {
               ),
 
               const SizedBox(height: 40),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Konsultasi',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ListDokter(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFC2185B),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'List Dokter',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
 
               const Align(
                 alignment: Alignment.centerLeft,
