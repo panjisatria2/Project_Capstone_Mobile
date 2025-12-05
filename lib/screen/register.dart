@@ -25,7 +25,6 @@ class Register extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Gambar logo
                 Image.asset('assets/navigasi/logo login.png', height: 120),
                 const SizedBox(height: 20),
 

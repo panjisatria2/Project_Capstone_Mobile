@@ -11,10 +11,62 @@ class Pertanyaan extends StatefulWidget {
 class _PertanyaanState extends State<Pertanyaan> {
   final Color primary = const Color(0xFFD63A63);
 
-  // State per pertanyaan
-  String? q1;
-  String? q2;
-  String? q3;
+  // STATE penyimpanan jawaban
+  Map<String, String?> jawaban = {
+    "lemas": null,
+    "pusing": null,
+    "fokus": null,
+    "pucat": null,
+    "jantung": null,
+    "haid_banyak": null,
+    "haid_lama": null,
+  };
+
+  // DATA pertanyaan
+  final List<Map<String, dynamic>> questions = [
+    {
+      "key": "lemas",
+      "tanya":
+      "Seberapa sering kamu merasa lemas atau mager padahal aktivitasmu biasa aja?",
+      "opsi": ["Tidak", "Kadang", "Sering"]
+    },
+    {
+      "key": "pusing",
+      "tanya":
+      "Sering merasa pusing, kliyengan, atau pandangan gelap pas bangun dari duduk?",
+      "opsi": ["Tidak", "Kadang", "Sering"]
+    },
+    {
+      "key": "fokus",
+      "tanya":
+      "Susah fokus pas belajar atau ngantuk berat di kelas?",
+      "opsi": ["Tidak", "Kadang", "Sering"]
+    },
+    {
+      "key": "pucat",
+      "tanya":
+      "Apakah wajah, bibir, atau kelopak matamu terlihat pucat?",
+      "opsi": ["Tidak", "Kadang", "Terlihat Jelas"]
+    },
+    {
+      "key": "jantung",
+      "tanya":
+      "Jantung deg-degan atau ngos-ngosan pas naik tangga/jalan cepat?",
+      "opsi": ["Tidak", "Kadang", "Sering"]
+    },
+    {
+      "key": "haid_banyak",
+      "tanya":
+      "Pas lagi haid, apakah darahnya keluar banyak banget (ganti pembalut < 3 jam)?",
+      "opsi": ["Tidak", "Hari 1-2 saja", "Tiap Haid"]
+    },
+    {
+      "key": "haid_lama",
+      "tanya":
+      "Apakah durasi haid kamu panjang (lebih dari 7 hari)?",
+      "opsi": ["Tidak", "Jarang", "Selalu"]
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,314 +88,68 @@ class _PertanyaanState extends State<Pertanyaan> {
               ),
 
               const SizedBox(height: 40),
-              const Text(
-                "Seberapa sering kamu merasa lemas, lesu, atau pusing?",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF6E7C7C),
+
+              // =====================================================
+              // LOOP PERTANYAAN
+              // =====================================================
+              for (var q in questions) ...[
+                Text(
+                  q["tanya"],
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF6E7C7C),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-              Wrap(
-                runSpacing: 15,
-                spacing: 40,
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => q1 = "Tidak pernah"),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q1 == "Tidak pernah" ? primary : Colors.transparent,
-                          ),
+                Wrap(
+                  runSpacing: 15,
+                  spacing: 40,
+                  children: [
+                    for (var opsi in q["opsi"])
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            jawaban[q["key"]] = opsi;
+                          });
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 26,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: primary, width: 2),
+                                borderRadius: BorderRadius.circular(4),
+                                color: jawaban[q["key"]] == opsi
+                                    ? primary
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              opsi,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFF6E7C7C),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 8),
-                        const Text("Tidak pernah",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q1 = "Terkadang"),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q1 == "Terkadang" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Terkadang",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q1 = "Sering"),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q1 == "Sering" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Sering",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q1 = "Hampir setiap hari"),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q1 == "Hampir setiap hari"
-                                ? primary
-                                : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Hampir setiap hari",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 40),
-              const Text(
-                "Apakah kamu merasa wajahmu tampak pucat atau sulit berkonsentrasi?",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF6E7C7C),
+                      ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 15),
 
-              Wrap(
-                runSpacing: 15,
-                spacing: 40,
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => q2 = "Tidak pernah"),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q2 == "Tidak pernah" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Tidak pernah",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q2 = "Terkadang"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q2 == "Terkadang" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Terkadang",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q2 = "Sering"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q2 == "Sering" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Sering",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () =>
-                        setState(() => q2 = "Hampir setiap hari"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q2 == "Hampir setiap hari"
-                                ? primary
-                                : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Hampir setiap hari",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                const SizedBox(height: 40),
+              ],
 
-              const SizedBox(height: 40),
-              const Text(
-                "Apakah kamu mengalami menstruasi lama (lebih dari 7 hari) atau darah yang sangat banyak?",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF6E7C7C),
-                ),
-              ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
 
-              Wrap(
-                runSpacing: 15,
-                spacing: 40,
-                children: [
-                  GestureDetector(
-                    onTap: () => setState(() => q3 = "Tidak pernah"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q3 == "Tidak pernah" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Tidak pernah",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q3 = "Terkadang"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q3 == "Terkadang" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Terkadang",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => setState(() => q3 = "Sering"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q3 == "Sering" ? primary : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Sering",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () =>
-                        setState(() => q3 = "Hampir setiap hari"),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: primary, width: 2),
-                            borderRadius: BorderRadius.circular(4),
-                            color: q3 == "Hampir setiap hari"
-                                ? primary
-                                : Colors.transparent,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("Hampir setiap hari",
-                            style: TextStyle(
-                                fontSize: 16, color: Color(0xFF6E7C7C))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 50),
-
+              // ===================================
+              // BUTTON SKRINING
+              // ===================================
               Center(
                 child: GestureDetector(
                   onTap: () {
@@ -374,6 +180,7 @@ class _PertanyaanState extends State<Pertanyaan> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 50),
             ],
           ),

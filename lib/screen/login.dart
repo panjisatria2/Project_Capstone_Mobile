@@ -26,7 +26,7 @@ class Login extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Logo
-                Image.asset('assets/navigasi/logo login.png', height: 120),
+                  Image.asset('assets/navigasi/logo login.png', height: 120),
                 const SizedBox(height: 20),
 
                 // Judul
@@ -110,16 +110,8 @@ class Login extends StatelessWidget {
                 const SizedBox(height: 25),
 
                 // Garis "Or"
-                Row(
-                  children: const [
-                    Expanded(child: Divider(thickness: 0.7)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('Or'),
-                    ),
-                    Expanded(child: Divider(thickness: 0.7)),
-                  ],
-                ),
+                Text('Or'),
+
                 const SizedBox(height: 20),
 
                 // Tombol Continue with Google

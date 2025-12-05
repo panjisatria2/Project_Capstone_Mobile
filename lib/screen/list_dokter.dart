@@ -11,12 +11,6 @@ class ListDokter extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _dokterCard(
-            context,
-            img: "assets/navigasi/logo login.png",
-            nama: "dr. Andika Putra",
-            online: true,
-          ),
           const SizedBox(height: 16),
           _dokterCard(
             context,

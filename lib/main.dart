@@ -1,3 +1,4 @@
+import 'package:anemaware/screen/login.dart';
 import 'package:anemaware/screen/onboarding.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Onboarding(),
+      home: Login(),
     );
   }
 }

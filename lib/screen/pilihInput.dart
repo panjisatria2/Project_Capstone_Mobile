@@ -9,151 +9,146 @@ class Pilihinput extends StatefulWidget {
 }
 
 class _PilihinputState extends State<Pilihinput> {
-  String selected = "konjungtiva";
+  final Color primary = const Color(0xFFD63A63);
 
   @override
   Widget build(BuildContext context) {
-    const primary = Color(0xFFD63A63);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => setState(() => selected = "konjungtiva"),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: selected == "konjungtiva"
-                          ? primary
-                          : primary.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      "Konjungtiva",
-                      style: TextStyle(
-                        color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600,
-                      ),
-                    ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              // TITLE
+              const SizedBox(height: 10),
+              const Center(
+                child: Text(
+                  "Input Gambar Konjungtiva atau kuku",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-
-                const SizedBox(width: 20),
-
-                GestureDetector(
-                  onTap: () => setState(() => selected = "kuku"),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: selected == "kuku"
-                          ? primary
-                          : primary.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      "Kuku/Nail",
-                      style: TextStyle(
-                        color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            Container(
-              height: 220,
-              margin: const EdgeInsets.symmetric(horizontal: 25),
-              decoration: BoxDecoration(
-                border: Border.all(color: primary, width: 1.5),
-                borderRadius: BorderRadius.circular(18),
               ),
-            ),
+              const SizedBox(height: 25),
 
-            const SizedBox(height: 30),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Kamera
-                GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 45, vertical: 15,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primary,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Text(
-                      "Kamera",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
+              // ============================
+              // KONJUNGTIVA
+              // ============================
+              const Text(
+                "Konjungtiva :",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                 ),
+              ),
+              const SizedBox(height: 10),
 
-                const SizedBox(width: 20),
-
-                GestureDetector(
-                  onTap: () {
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 45, vertical: 15,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primary,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Text(
-                      "Pilih Galeri",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 100),
-
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Pertanyaan()),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 120,
-                  vertical: 18,
-                ),
+              Container(
+                height: 180,
                 decoration: BoxDecoration(
-                  color: primary,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: primary, width: 1.5),
                 ),
               ),
-            ),
-          ],
+
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _pinkButton("Kamera"),
+                  const SizedBox(width: 20),
+                  _pinkButton("Pilih Galeri"),
+                ],
+              ),
+
+              const SizedBox(height: 40),
+
+              // ============================
+              // KUKU
+              // ============================
+              const Text(
+                "Kuku :",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              Container(
+                height: 180,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: primary, width: 1.5),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _pinkButton("Kamera"),
+                  const SizedBox(width: 20),
+                  _pinkButton("Pilih Galeri"),
+                ],
+              ),
+
+              const SizedBox(height: 60),
+
+              // NEXT BUTTON
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (c) => Pertanyaan()),
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  // WIDGET BUTTON PINK
+  Widget _pinkButton(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+      decoration: BoxDecoration(
+        color: primary,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white, fontSize: 16),
       ),
     );
   }
