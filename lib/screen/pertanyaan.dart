@@ -1,28 +1,11 @@
 import 'package:anemaware/screen/hasil.dart';
 import 'package:flutter/material.dart';
 
-class Pertanyaan extends StatefulWidget {
-  const Pertanyaan({super.key});
+class Pertanyaan extends StatelessWidget {
+  Pertanyaan({super.key});
 
-  @override
-  State<Pertanyaan> createState() => _PertanyaanState();
-}
-
-class _PertanyaanState extends State<Pertanyaan> {
   final Color primary = const Color(0xFFD63A63);
 
-  // STATE penyimpanan jawaban
-  Map<String, String?> jawaban = {
-    "lemas": null,
-    "pusing": null,
-    "fokus": null,
-    "pucat": null,
-    "jantung": null,
-    "haid_banyak": null,
-    "haid_lama": null,
-  };
-
-  // DATA pertanyaan
   final List<Map<String, dynamic>> questions = [
     {
       "key": "lemas",
@@ -44,14 +27,12 @@ class _PertanyaanState extends State<Pertanyaan> {
     },
     {
       "key": "pucat",
-      "tanya":
-      "Apakah wajah, bibir, atau kelopak matamu terlihat pucat?",
+      "tanya": "Apakah wajah, bibir, atau kelopak matamu terlihat pucat?",
       "opsi": ["Tidak", "Kadang", "Terlihat Jelas"]
     },
     {
       "key": "jantung",
-      "tanya":
-      "Jantung deg-degan atau ngos-ngosan pas naik tangga/jalan cepat?",
+      "tanya": "Jantung deg-degan atau ngos-ngosan pas naik tangga/jalan cepat?",
       "opsi": ["Tidak", "Kadang", "Sering"]
     },
     {
@@ -62,128 +43,131 @@ class _PertanyaanState extends State<Pertanyaan> {
     },
     {
       "key": "haid_lama",
-      "tanya":
-      "Apakah durasi haid kamu panjang (lebih dari 7 hari)?",
+      "tanya": "Apakah durasi haid kamu panjang (lebih dari 7 hari)?",
       "opsi": ["Tidak", "Jarang", "Selalu"]
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Jawaban TIDAK DISIMPAN (langsung reset setiap build)
+    Map<String, String?> jawaban = {
+      for (var q in questions) q["key"]: null,
+    };
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              const Text(
-                "Pertanyaan",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // =====================================================
-              // LOOP PERTANYAAN
-              // =====================================================
-              for (var q in questions) ...[
-                Text(
-                  q["tanya"],
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF6E7C7C),
+        child: StatefulBuilder(
+          builder: (context, setState) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 40),
+                  const Text(
+                    "Pertanyaan",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 15),
 
-                Wrap(
-                  runSpacing: 15,
-                  spacing: 40,
-                  children: [
-                    for (var opsi in q["opsi"])
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            jawaban[q["key"]] = opsi;
-                          });
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              width: 26,
-                              height: 26,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: primary, width: 2),
-                                borderRadius: BorderRadius.circular(4),
-                                color: jawaban[q["key"]] == opsi
-                                    ? primary
-                                    : Colors.transparent,
-                              ),
+                  const SizedBox(height: 40),
+
+                  for (var q in questions) ...[
+                    Text(
+                      q["tanya"],
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF6E7C7C),
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+
+                    Wrap(
+                      runSpacing: 15,
+                      spacing: 40,
+                      children: [
+                        for (var opsi in q["opsi"])
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                jawaban[q["key"]] = opsi;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 26,
+                                  height: 26,
+                                  decoration: BoxDecoration(
+                                    border:
+                                    Border.all(color: primary, width: 2),
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: jawaban[q["key"]] == opsi
+                                        ? primary
+                                        : Colors.transparent,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  opsi,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xFF6E7C7C),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              opsi,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Color(0xFF6E7C7C),
-                              ),
-                            ),
-                          ],
+                          ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 40),
+                  ],
+
+                  const SizedBox(height: 20),
+
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Hasil(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 130,
+                          vertical: 18,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primary,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: const Text(
+                          "Skrining",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                  ],
-                ),
-
-                const SizedBox(height: 40),
-              ],
-
-              const SizedBox(height: 20),
-
-              // ===================================
-              // BUTTON SKRINING
-              // ===================================
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Hasil(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 130,
-                      vertical: 18,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primary,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Text(
-                      "Skrining",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
                     ),
                   ),
-                ),
-              ),
 
-              const SizedBox(height: 50),
-            ],
-          ),
+                  const SizedBox(height: 50),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
